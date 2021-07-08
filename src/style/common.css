@@ -1,0 +1,9 @@
+.bgc {
+    width: 100%;
+    height: 100vh;
+    background-color: #EBEBEC;
+}
+
+.bgc-padding {
+    padding: 20rpx;
+}
