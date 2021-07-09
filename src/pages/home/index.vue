@@ -13,58 +13,18 @@
         <u-cell-item icon="volume-up" title="通知公告"></u-cell-item>
       </u-cell-group>
     </view>
-    <!-- <view class="list-container">
-      <scroll-view
-        class="scrool-more"
-        style="height: 98%"
-        scroll-y="true"
-        scroll-with-animation="true"
-        refresher-enabled="true"
-        :refresher-triggered="triggered"
-        :refresher-threshold="100"
-        @refresherpulling="onPulling"
-        @refresherrefresh="onRefresh"
-        @refresherrestore="onRestore"
-        @refresherabort="onAbort"
-      >
-        <view class="home-notice-list">
-          <u-card
-            :show-head="false"
-            class="card-box"
-            v-for="(item, index) in contentList"
-            :key="index"
-          >
-            <view class="" slot="body">
-              <view class="home-notice-body">
-                <view class="home-notice-top-left">
-                  <view class="notice">公告</view>
-                </view>
-                <view class="home-notice-top-right">
-                  <view class="title-top">
-                    <view class="title">{{ item.title }}</view>
-                    <view class="point"></view>
-                  </view>
-                  <view class="content-middle">{{ item.content }}</view>
-                  <view class="date-bottom">{{ item.date }}</view>
-                </view>
-              </view>
-            </view>
-          </u-card>
-        </view>
-      </scroll-view>
-    </view> -->
     <view class="list-container">
       <page-content
         :refresher="true"
         @onRefresh="refresh"
-        @on-infinite="infiniteScroll"
+        @onInfinite="infiniteScroll"
         :infiniting="true"
       >
         <view class="home-notice-list">
           <u-card
             :show-head="false"
             class="card-box"
-            v-for="(item, index) in contentList"
+            v-for="(item, index) in contentList.list"
             :key="index"
           >
             <view class="" slot="body">
@@ -116,38 +76,66 @@ export default {
         },
 
       ],
-      contentList: [
-        {
-          title: '关于各部门做好2021年工作计划的通知',
-          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-          date: '2021-03-02 01:00:21'
-        },
-        {
-          title: '明天下午三点开会',
-          content: '明天下午三点开会,请大家准时到会议室参加!',
-          date: '2021-07-07 05:30:21'
-        },
-        {
-          title: '明天下午三点开会',
-          content: '明天下午三点开会,请大家准时到会议室参加!',
-          date: '2021-07-07 05:30:21'
-        },
-        {
-          title: '明天下午三点开会',
-          content: '明天下午三点开会,请大家准时到会议室参加!',
-          date: '2021-07-07 05:30:21'
-        },
-        {
-          title: '明天下午三点开会',
-          content: '明天下午三点开会,请大家准时到会议室参加!',
-          date: '2021-07-07 05:30:21'
-        },
-        {
-          title: '关于各部门做好2021年工作计划的通知',
-          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-          date: '2021-03-02 01:00:21'
-        },
-      ],
+      contentList: {
+        list: [
+          {
+            title: '1关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '2明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '3明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '4明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '5明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '6关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '7关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '8关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '9关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '10关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+        ],
+        total: 20,
+        current: 1,
+        pages: 10
+      },
+      newContentList: {},
+
+
       list: [
         {
           iconPath: "home",
@@ -197,6 +185,9 @@ export default {
     }, 1000)
   },
   mounted () {
+    this.newContentList = {
+      ...this.contentList
+    }
   },
   methods: {
     refresh ({ complete }) {
@@ -205,10 +196,16 @@ export default {
       }, 1000);
     },
     infiniteScroll ({ setStatus }) {
-      setTimeout(() => {
-        console.log(setStatus);
-        setStatus('noMore', this.contentList.length > 6 ? true : false);
-      }, 1000);
+      if (this.newContentList.current * this.newContentList.pages == this.newContentList.total) {
+        setStatus('noMore');
+      } else {
+        setStatus('more');
+      }
+
+
+      //   setTimeout(() => {
+      //     setStatus('noMore', this.contentList.list.length > this.contentList.total ? true : false);
+      //   }, 1000);
     },
   }
 }

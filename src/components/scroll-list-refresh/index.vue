@@ -6,8 +6,8 @@
     :refresher-enabled="refresher"
     :refresher-threshold="threshold"
     :refresher-triggered="triggered"
-    @refresherrefresh="refreshing"
     :scroll-anchoring="anchoring"
+    @refresherrefresh="refreshing"
     @scrolltolower="infinite"
   >
     <slot></slot>
@@ -15,6 +15,7 @@
       :status="loadMoreStatus"
       iconType="snow"
       v-if="infiniting"
+      @clickLoadMore="clickLoadMore"
     ></load-more>
   </scroll-view>
 </template>
@@ -53,12 +54,6 @@ export default {
       loadMoreStatus: 'more', // 上拉加载的状态样式
     };
   },
-  //   onLoad () {
-  //     this.isRefreshing = false
-  //     setTimeout(() => {
-  //       this.triggered = true;
-  //     }, 1000)
-  //   },
   methods: {
     refreshing () {
       if (this.isRefreshing) return;
@@ -75,15 +70,23 @@ export default {
     },
     infinite () {
       if (this.isInfiniting) {
-        this.loadMoreStatus = this.infiniteDisabled ? 'noMore' : 'loading';
+        // this.loadMoreStatus = this.infiniteDisabled ? 'noMore' : 'loading';
         this.$emit('onInfinite', {
-          setStatus: function (status, disabled) {
+          setStatus: (status, disabled) => {
             this.loadMoreStatus = status;
+            // if (status == 'more') {
+            //   this.clickLoadMore({ detail });
+            // }
             this.infiniteDisabled = disabled;
-          }.bind(this)
+          }
         });
       }
     },
+    clickLoadMore ({ detail }) {
+      console.log('上拉更多数据');
+      console.log(detail, 'detail');
+      this.$emit('getNewList')
+    }
   }
 }
 </script>
