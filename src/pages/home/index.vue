@@ -24,7 +24,7 @@
           <u-card
             :show-head="false"
             class="card-box"
-            v-for="(item, index) in contentList.list"
+            v-for="(item, index) in newList"
             :key="index"
           >
             <view class="" slot="body">
@@ -133,9 +133,7 @@ export default {
         current: 1,
         pages: 10
       },
-      newContentList: {},
-
-
+      newList: [],
       list: [
         {
           iconPath: "home",
@@ -174,20 +172,11 @@ export default {
         },
       ],
       current: 0,
-      triggered: false,//设置当前下拉刷新状态，true 表示下拉刷新已经被触发，false 表示下拉刷新未被触发
 
     }
   },
-  onLoad () {
-    this._freshing = false;
-    setTimeout(() => {
-      this.triggered = true;
-    }, 1000)
-  },
   mounted () {
-    this.newContentList = {
-      ...this.contentList
-    }
+    this.newList = this.contentList.list
   },
   methods: {
     refresh ({ complete }) {
@@ -196,18 +185,84 @@ export default {
       }, 1000);
     },
     infiniteScroll ({ setStatus }) {
-      if (this.newContentList.current * this.newContentList.pages == this.newContentList.total) {
+      if (this.contentList.current * this.contentList.pages === this.contentList.total) {
         setStatus('noMore');
       } else {
         setStatus('more');
+        this.getNewList(setStatus)
+
       }
-
-
-      //   setTimeout(() => {
-      //     setStatus('noMore', this.contentList.list.length > this.contentList.total ? true : false);
-      //   }, 1000);
     },
-  }
+    getNewList (callback) {//上拉获取更多数据
+      if (this.contentList.current * this.contentList.pages == this.contentList.total) {
+        callback('noMore')
+        return
+      }
+      callback('loading')
+      this.contentList = {
+        list: [
+          {
+            title: '11关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '12明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '13明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '14明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '15明天下午三点开会',
+            content: '明天下午三点开会,请大家准时到会议室参加!',
+            date: '2021-07-07 05:30:21'
+          },
+          {
+            title: '16关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '17关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '18关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '19关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+          {
+            title: '20关于各部门做好2021年工作计划的通知',
+            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+            date: '2021-03-02 01:00:21'
+          },
+        ],
+        total: 20,
+        current: 2,
+        pages: 10
+
+      }
+      this.newList = [...this.newList, ...this.contentList.list]
+    }
+
+
+
+  },
 }
 </script>
 <style lang="scss">

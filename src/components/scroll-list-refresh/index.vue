@@ -74,19 +74,17 @@ export default {
         this.$emit('onInfinite', {
           setStatus: (status, disabled) => {
             this.loadMoreStatus = status;
-            // if (status == 'more') {
-            //   this.clickLoadMore({ detail });
-            // }
+            if (status == 'more') {
+              this.$emit('getNewList')
+            }
             this.infiniteDisabled = disabled;
           }
         });
       }
     },
-    clickLoadMore ({ detail }) {
-      console.log('上拉更多数据');
-      console.log(detail, 'detail');
-      this.$emit('getNewList')
-    }
+    // clickLoadMore ({ detail }) {
+    //   this.$emit('getNewList')
+    // }
   }
 }
 </script>
