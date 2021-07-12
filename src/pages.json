@@ -37,6 +37,15 @@
             }
         }
     ],
+    "tabBar": {
+        "list": [{
+                "pagePath": "pages/home/index"
+            },
+            {
+                "pagePath": "pages/mine/index"
+            }
+        ]
+    },
     "globalStyle": {
         "navigationBarTextStyle": "black",
         "navigationBarTitleText": "uni-app",
