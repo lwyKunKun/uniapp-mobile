@@ -11,12 +11,7 @@
     @scrolltolower="infinite"
   >
     <slot></slot>
-    <load-more
-      :status="loadMoreStatus"
-      iconType="snow"
-      v-if="infiniting"
-      @clickLoadMore="clickLoadMore"
-    ></load-more>
+    <load-more :status="loadMoreStatus" v-if="infiniting"></load-more>
   </scroll-view>
 </template>
 
@@ -68,15 +63,12 @@ export default {
       this.isInfiniting = true;
       this.infiniteDisabled = false;
     },
-    infinite () {
+    infinite () {//距底部多远时，触发 scrolltolower 事件
       if (this.isInfiniting) {
-        // this.loadMoreStatus = this.infiniteDisabled ? 'noMore' : 'loading';
+        this.loadMoreStatus = this.infiniteDisabled ? 'noMore' : 'loading';
         this.$emit('onInfinite', {
           setStatus: (status, disabled) => {
             this.loadMoreStatus = status;
-            if (status == 'more') {
-              this.$emit('getNewList')
-            }
             this.infiniteDisabled = disabled;
           }
         });

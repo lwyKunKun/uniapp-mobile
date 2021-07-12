@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style lang="scss">
-/*每个页面公共css */
 @import 'uview-ui/theme.scss';
 @import './style/common.css';
+@import './static/icon/iconfont.css';
 </style>

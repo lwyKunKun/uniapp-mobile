@@ -46,8 +46,16 @@
         </view>
       </page-content>
     </view>
+
     <view class="home-bottom">
-      <u-tabbar v-model="current" :list="list" :mid-button="true"></u-tabbar>
+      <u-tabbar
+        v-model="current"
+        :list="bottomList"
+        active-color="#1CBBB4"
+        inactive-color="#BABBBB"
+        icon-size="50"
+        @change="change"
+      ></u-tabbar>
     </view>
   </view>
 </template>
@@ -134,41 +142,32 @@ export default {
         pages: 10
       },
       newList: [],
-      list: [
+      bottomList: [
         {
-          iconPath: "home",
-          selectedIconPath: "home-fill",
+          iconPath: "shouye",
+          selectedIconPath: "shouye",
           text: '首页',
-          // count: 2,
-          // isDot: true,
-          customIcon: false,
+          customIcon: true,
+          pagePath: "/pages/home/index"
         },
         {
-          iconPath: "photo",
-          selectedIconPath: "photo-fill",
-          text: '放映厅',
-          customIcon: false,
+          iconPath: "daiban",
+          selectedIconPath: "daiban",
+          text: '待办',
+          customIcon: true,
         },
         {
-          iconPath: "https://cdn.uviewui.com/uview/common/min_button.png",
-          selectedIconPath: "https://cdn.uviewui.com/uview/common/min_button_select.png",
-          text: '发布',
-          midButton: true,
-          customIcon: false,
+          iconPath: "icon-yingyong",
+          selectedIconPath: "icon-yingyong",
+          text: '应用',
+          customIcon: true,
         },
         {
-          iconPath: "play-right",
-          selectedIconPath: "play-right-fill",
-          text: '直播',
-          customIcon: false,
-        },
-        {
-          iconPath: "account",
-          selectedIconPath: "account-fill",
+          iconPath: "wode",
+          selectedIconPath: "wode",
           text: '我的',
-          count: 23,
-          isDot: false,
-          customIcon: false,
+          customIcon: true,
+          pagePath: "/pages/mine/index"
         },
       ],
       current: 0,
@@ -186,82 +185,78 @@ export default {
     },
     infiniteScroll ({ setStatus }) {
       if (this.contentList.current * this.contentList.pages === this.contentList.total) {
-        setStatus('noMore');
+        setStatus('noMore', true);
       } else {
-        setStatus('more');
         this.getNewList(setStatus)
-
       }
     },
     getNewList (callback) {//上拉获取更多数据
-      if (this.contentList.current * this.contentList.pages == this.contentList.total) {
-        callback('noMore')
-        return
-      }
-      callback('loading')
-      this.contentList = {
-        list: [
-          {
-            title: '11关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '12明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '13明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '14明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '15明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '16关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '17关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '18关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '19关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '20关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-        ],
-        total: 20,
-        current: 2,
-        pages: 10
+      setTimeout(() => {
+        callback('loading', false)
+        this.contentList = {
+          list: [
+            {
+              title: '11关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+            {
+              title: '12明天下午三点开会',
+              content: '明天下午三点开会,请大家准时到会议室参加!',
+              date: '2021-07-07 05:30:21'
+            },
+            {
+              title: '13明天下午三点开会',
+              content: '明天下午三点开会,请大家准时到会议室参加!',
+              date: '2021-07-07 05:30:21'
+            },
+            {
+              title: '14明天下午三点开会',
+              content: '明天下午三点开会,请大家准时到会议室参加!',
+              date: '2021-07-07 05:30:21'
+            },
+            {
+              title: '15明天下午三点开会',
+              content: '明天下午三点开会,请大家准时到会议室参加!',
+              date: '2021-07-07 05:30:21'
+            },
+            {
+              title: '16关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+            {
+              title: '17关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+            {
+              title: '18关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+            {
+              title: '19关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+            {
+              title: '20关于各部门做好2021年工作计划的通知',
+              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+              date: '2021-03-02 01:00:21'
+            },
+          ],
+          total: 20,
+          current: 2,
+          pages: 10
 
-      }
-      this.newList = [...this.newList, ...this.contentList.list]
+        }
+        this.newList = [...this.newList, ...this.contentList.list]
+      }, 1000);
+    },
+    change (index) {
+      console.log(index);
     }
-
-
-
   },
 }
 </script>
@@ -275,6 +270,11 @@ export default {
   }
   /deep/.u-card__body {
     padding: 20rpx 20rpx 10rpx 0 !important;
+  }
+}
+.home-bottom {
+  .u-tabbar__content__item__text {
+    line-height: 40rpx;
   }
 }
 </style>
