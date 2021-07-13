@@ -14,11 +14,12 @@
       </u-cell-group>
     </view>
     <view class="list-container">
-      <page-content
+      <scrollList
         :refresher="true"
         @onRefresh="refresh"
         @onInfinite="infiniteScroll"
         :infiniting="true"
+        :loadMoreState="loadMoreState"
       >
         <view class="home-notice-list">
           <u-card
@@ -44,27 +45,19 @@
             </view>
           </u-card>
         </view>
-      </page-content>
+      </scrollList>
     </view>
-
-    <view class="home-bottom">
-      <u-tabbar
-        v-model="current"
-        :list="bottomList"
-        active-color="#1CBBB4"
-        inactive-color="#BABBBB"
-        icon-size="50"
-        @change="change"
-      ></u-tabbar>
-    </view>
+    <bottomTabbar></bottomTabbar>
   </view>
 </template>
 
 <script>
-import pageContent from '../../components/scroll-list-refresh/index.vue'
+import bottomTabbar from '../../components/bottom-tabbar'
+import scrollList from '../../components/scroll-list-refresh'
 export default {
   components: {
-    pageContent
+    bottomTabbar,
+    scrollList
 
   },
   data () {
@@ -141,36 +134,7 @@ export default {
         current: 1,
         pages: 10
       },
-      newList: [],
-      bottomList: [
-        {
-          iconPath: "shouye",
-          selectedIconPath: "shouye",
-          text: '首页',
-          customIcon: true,
-          pagePath: "/pages/home/index"
-        },
-        {
-          iconPath: "daiban",
-          selectedIconPath: "daiban",
-          text: '待办',
-          customIcon: true,
-        },
-        {
-          iconPath: "icon-yingyong",
-          selectedIconPath: "icon-yingyong",
-          text: '应用',
-          customIcon: true,
-        },
-        {
-          iconPath: "wode",
-          selectedIconPath: "wode",
-          text: '我的',
-          customIcon: true,
-          pagePath: "/pages/mine/index"
-        },
-      ],
-      current: 0,
+
 
     }
   },
@@ -291,13 +255,6 @@ export default {
   .list-container {
     flex: 1;
     position: relative;
-    .scrool-more {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-    }
   }
   .home-notice-list {
     .home-notice-body {

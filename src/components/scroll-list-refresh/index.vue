@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import loadMore from '../load-more/index'
+import loadMore from '../load-more/index.vue'
 export default {
-  name: "PageContent",
+  name: "scrollList",
   components: {
     loadMore
   },
@@ -39,6 +39,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    loadMoreState: {
+      type: String,
+    }
   },
   data () {
     return {
@@ -46,7 +49,7 @@ export default {
       isInfiniting: this.infiniting, // 是否在加载中
       infiniteDisabled: false, // 是否禁用上拉加载
       triggered: true,//设置当前下拉刷新状态，true 表示下拉刷新已经被触发，false 表示下拉刷新未被触发
-      loadMoreStatus: 'more', // 上拉加载的状态样式
+      loadMoreStatus: this.loadMoreState, // 上拉加载的状态样式
     };
   },
   methods: {

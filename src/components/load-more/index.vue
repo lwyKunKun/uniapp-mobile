@@ -25,7 +25,7 @@ const platform = uni.getSystemInfoSync().platform
  * @event {Function} clickLoadMore 点击加载更多时触发
  */
 export default {
-  name: 'LoadMore',
+  name: 'loadMore',
   props: {
     status: {
       // 上拉的状态：more-loading前；loading-loading中；noMore-没有更多了

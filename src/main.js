@@ -2,8 +2,8 @@ import Vue from "vue";
 import App from "./App";
 import uView from "uview-ui";
 import { getWindowHeight } from "./util/util";
-Vue.use(uView);
 
+Vue.use(uView);
 Vue.config.productionTip = false;
 Vue.prototype.getWindowHeight = getWindowHeight();
 

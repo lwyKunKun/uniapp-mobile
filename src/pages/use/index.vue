@@ -1,7 +1,6 @@
-<!-- 我的 -->
+<!-- 应用 -->
 <template>
-  <view class="mine-container">
-    这里是我的页面
+  <view>
     <bottomTabbar></bottomTabbar>
   </view>
 </template>
@@ -16,10 +15,6 @@ export default {
   data () {
     return {
     };
-  },
-  //第一次加载时调用
-  created () {
-    //获取手机状态栏高度
   },
 
   mounted () { },

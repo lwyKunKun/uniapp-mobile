@@ -64,10 +64,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           if (this.form.phone == '123' && this.form.password == "123") {
-            console.log('进入这里没');
-            uni.redirectTo({
-              url: "/pages/home/index"
-            });
+            uni.switchTab({
+              url: '/pages/home/index'
+            })
 
           } else {
             this.$refs.uToast.show({
