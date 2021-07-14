@@ -25,7 +25,7 @@
           <u-card
             :show-head="false"
             class="card-box"
-            v-for="(item, index) in newList"
+            v-for="(item, index) in currentList.list"
             :key="index"
           >
             <view class="" slot="body">
@@ -134,12 +134,21 @@ export default {
         current: 1,
         pages: 10
       },
+      loadMoreState: 'more',
+      newList: [],
+      currentList: {},
+
 
 
     }
   },
-  mounted () {
+  created () {
+    this.currentList = this.contentList
     this.newList = this.contentList.list
+    this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
+    this.judgeStatus()
+  },
+  mounted () {
   },
   methods: {
     refresh ({ complete }) {
@@ -148,15 +157,15 @@ export default {
       }, 1000);
     },
     infiniteScroll ({ setStatus }) {
-      if (this.contentList.current * this.contentList.pages === this.contentList.total) {
+      if (this.contentList.current * this.contentList.pages >= this.contentList.total) {
         setStatus('noMore', true);
       } else {
         this.getNewList(setStatus)
       }
     },
     getNewList (callback) {//上拉获取更多数据
+      callback('loading', false)
       setTimeout(() => {
-        callback('loading', false)
         this.contentList = {
           list: [
             {
@@ -215,11 +224,20 @@ export default {
           pages: 10
 
         }
-        this.newList = [...this.newList, ...this.contentList.list]
+        this.newList.push(...this.contentList.list)
+        this.currentList = {
+          ...this.contentList,
+          list: this.newList
+        }
       }, 1000);
     },
     change (index) {
       console.log(index);
+    },
+    judgeStatus () {//判断一开始的状态
+      if (this.contentList.total < this.contentList.pages) {
+        this.loadMoreState = 'noMore'
+      }
     }
   },
 }

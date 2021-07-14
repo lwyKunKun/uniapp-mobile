@@ -16,4 +16,5 @@ export default {
 @import 'uview-ui/theme.scss';
 @import './style/common.css';
 @import './static/icon/iconfont.css';
+@import 'feui/lib/feui-css/index.css';
 </style>

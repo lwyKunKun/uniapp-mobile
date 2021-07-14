@@ -11,7 +11,11 @@
     @scrolltolower="infinite"
   >
     <slot></slot>
-    <load-more :status="loadMoreStatus" v-if="infiniting"></load-more>
+    <load-more
+      :status="loadMoreStatus"
+      v-if="infiniting && isNotEmpty"
+    ></load-more>
+    <u-empty mode="list" v-else></u-empty>
   </scroll-view>
 </template>
 
@@ -41,6 +45,10 @@ export default {
     },
     loadMoreState: {
       type: String,
+    },
+    isNotEmpty: {//数据是否不为空
+      type: Boolean,
+      default: true,
     }
   },
   data () {

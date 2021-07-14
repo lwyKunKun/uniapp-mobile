@@ -17,6 +17,7 @@
         @onInfinite="infiniteScroll"
         :infiniting="true"
         :loadMoreState="loadMoreState"
+        :isNotEmpty="isNotEmpty"
       >
         <u-card
           v-for="(item, index) in currentList.list"
@@ -26,6 +27,7 @@
           sub-title-color="#1CBBB4"
           :head-border-bottom="true"
           border-radius="24"
+          @click="gotoDetail(item)"
         >
           <view class="" slot="body">
             <view class="content">{{ item.content }}</view>
@@ -34,7 +36,6 @@
         </u-card>
       </scrollList>
     </view>
-
     <bottomTabbar></bottomTabbar>
   </view>
 </template>
@@ -58,49 +59,113 @@ export default {
         },
       ],
       pendingList: {
-        list: [{
-          user: '1雷婉悦',
-          state: '已审核',
-          time: '2021-03-02 01:14:52',
-          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-        },
-        {
-          user: '2雷婉悦',
-          state: '已审核',
-          time: '2021-03-02 01:14:52',
-          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-        },
-        {
-          user: '2雷婉悦',
-          state: '已审核',
-          time: '2021-03-02 01:14:52',
-          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-        }],
-        total: 3,
+        list: [
+          {
+            id: 1,
+            user: '1雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 2,
+            user: '2雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 3,
+            user: '2雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 4,
+            user: '4雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 5,
+            user: '5雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 6,
+            user: '6雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 7,
+            user: '7雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 8,
+            user: '8雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 9,
+            user: '9雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },
+          {
+            id: 10,
+            user: '10雷婉悦',
+            state: '已审核',
+            time: '2021-03-02 01:14:52',
+            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+          },],
+        total: 21,
         current: 1,
         pages: 10
-
-      },
-      processedList: {},
+      },//待处理数据
+      processedList: {},//已处理数据
       current: 0,
       barWidth: 100,
-      title: '雷婉悦',
-      subTitle: '2020-05-15',
-      currentList: {},
-      loadMoreState: 'more'
-
+      currentList: {},//当前数据
+      loadMoreState: 'more',
+      isNotEmpty: true,//数据是否不为空
+      newPendingList: [],
     };
+  },
+  created () {
+    this.currentList = this.pendingList
+    this.newPendingList = this.currentList.list
+    this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
+    this.judgeStatus();
   },
 
   mounted () {
-    this.currentList = this.pendingList
-    this.lwy();
+
   },
   methods: {
     tabsChange (index) {
       this.current = index;
-      this.current == 0 ? this.currentList = this.pendingList : this.currentList = this.processedList
-      this.lwy();
+      if (this.current == 0) {
+        this.currentList = {
+          ...this.pendingList,
+          list: this.newPendingList
+        }
+      } else {
+        this.currentList = this.processedList
+      }
+      this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
+      this.judgeStatus();
     },
     refresh ({ complete }) {
       setTimeout(() => {
@@ -108,28 +173,137 @@ export default {
       }, 1000);
     },
     infiniteScroll ({ setStatus }) {
-      console.log('鼠标滚动了吗？');
-      if (this.currentList.current * this.currentList.pages === this.contentList.total) {
+      if (this.currentList.current * this.currentList.pages >= this.currentList.total) {
         setStatus('noMore', true);
       } else {
         this.getNewList(setStatus)
       }
     },
     getNewList (callback) {//上拉获取更多数据
+      callback('loading', false)
       setTimeout(() => {
-        callback('loading', false)
-        this.contentList = {
-          total: 20,
-          current: 2,
-          pages: 10
+        if (this.current == 0) {//待处理
+          this.pendingList = {
+            list: [
+              {
+                id: 11,
+                user: '11雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 12,
+                user: '12雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 13,
+                user: '13雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 14,
+                user: '14雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 15,
+                user: '15雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 16,
+                user: '16雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 17,
+                user: '17雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 18,
+                user: '18雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 19,
+                user: '19雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+              {
+                id: 20,
+                user: '20雷婉悦',
+                state: '已审核',
+                time: '2021-03-02 01:14:52',
+                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+              },
+            ],
+            total: 21,
+            current: 2,
+            pages: 10
+          },//待处理数据
+            this.newPendingList.push(...this.pendingList.list)
+          this.currentList = {
+            ...this.pendingList,
+            list: this.newPendingList
+          }
+          setTimeout(() => {
+            this.pendingList = {
+              list: [
+                {
+                  id: 21,
+                  user: '21雷婉悦',
+                  state: '已审核',
+                  time: '2021-03-02 01:14:52',
+                  content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+                },
+              ],
+              total: 21,
+              current: 3,
+              pages: 10
+            },//待处理数据
+              this.newPendingList.push(...this.pendingList.list)
+            this.currentList = {
+              ...this.pendingList,
+              list: this.newPendingList
+            }
+
+
+          }, 1000)
+
+        } else {//已处理
 
         }
       }, 1000);
     },
-    lwy () {
+    judgeStatus () {//判断一开始的状态
       if (this.currentList.total < this.currentList.pages) {
         this.loadMoreState = 'noMore'
       }
+    },
+    gotoDetail (item) {//点击跳转详情
+      console.log(item);
+      uni.navigateTo({
+        url: '/pages/backlog/modules/details?item=' + encodeURIComponent(JSON.stringify(item))
+      });
     }
 
   }
