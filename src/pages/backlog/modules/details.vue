@@ -3,16 +3,13 @@
   <view class="details-container bgc">
     <view class="common content">{{ data.content }}</view>
     <view class="common flow">
-      <fe-steps :active="active" direction="vertical" active-color="#1CBBB4">
-        <fe-step v-for="(item, index) in numList" :key="index">
-          <view>{{ item.status }}</view>
-          <view class="description">
-            <view>{{ item.user }}</view>
-            <view>{{ item.result }}</view>
-            <view>{{ item.date }}</view>
-          </view>
-        </fe-step>
-      </fe-steps>
+      <steps
+        v-for="(item, index) in list"
+        :item="item"
+        :key="index"
+        active-color="#1CBBB4"
+      >
+      </steps>
     </view>
     <view class="common opinion">
       <view>问题和意见</view>
@@ -34,7 +31,6 @@
         type="textarea"
         placeholder="请详细描述您的意见..."
         :auto-height="true"
-        :height="400"
       />
     </view>
     <view class="btn">
@@ -45,26 +41,40 @@
 </template>
 
 <script>
+import steps from '@/components/steps/index.vue'
 export default {
-  components: {},
-
+  components: {
+    steps
+  },
   data () {
     return {
       data: {},
-      numList: [
+      list: [
+        {
+          status: '11',
+          user: 'aaaa',
+          result: '6666',
+          date: '2021-03-02 02:15',
+          activity: 1,
+          index: 2,
+        },
         {
           status: '审核',
           user: '李主任',
           result: '好的',
-          date: '2021-03-02 02:15'
+          date: '2021-03-02 02:15',
+          activity: 1,
+          index: 1,
         },
         {
           status: '申请',
           user: '雷婉悦',
           result: '提交申请',
-          date: '2021-03-02 01:15'
-        },
-      ],
+          date: '2021-03-02 01:15',
+          activity: 1,
+          index: 0,
+
+        }],
       active: 0,
       dropDown: '',//下拉
       options: [
@@ -107,23 +117,14 @@ export default {
 </style>
 <style lang='scss' scoped>
 .details-container {
+  width: 100%;
+  height: 100vh;
   padding: 20rpx 0;
   .common {
     padding: 20rpx;
     font-size: 28rpx;
     background-color: #fff;
     margin-bottom: 40rpx;
-  }
-  .flow {
-    .description {
-      display: flex;
-      color: #d7d8d9;
-      font-size: 24rpx;
-      margin-top: 10rpx;
-      view {
-        margin-right: 10rpx;
-      }
-    }
   }
   .opinion {
     display: flex;

@@ -1,6 +1,11 @@
 {
     "easycom": {
-        "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+        "autoscan": true,
+        "custom": {
+            "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue",
+            "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
+            "^fe-(.*)": "feui/lib/$1/index.js"
+        }
     },
     "pages": [{
             "path": "pages/login/index",
@@ -58,7 +63,11 @@
             "style": {
                 "navigationBarTitleText": "待办详情",
                 "navigationBarBackgroundColor": "#1CBBB4",
-                "navigationBarTextStyle": "white"
+                "navigationBarTextStyle": "white",
+                "app-plus": {
+                    "bounce": "none",
+                    "scrollIndicator": "none" //当前页面不显示滚动条
+                }
             }
         }
     ],
