@@ -31,6 +31,7 @@
         type="textarea"
         placeholder="请详细描述您的意见..."
         :auto-height="true"
+        height="550"
       />
     </view>
     <view class="btn">
