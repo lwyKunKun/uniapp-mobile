@@ -45,7 +45,10 @@
             "style": {
                 "navigationBarTitleText": "应用中心",
                 "navigationBarBackgroundColor": "#1CBBB4",
-                "navigationBarTextStyle": "white"
+                "navigationBarTextStyle": "white",
+                "app-plus": {
+                    "bounce": "none"
+                }
             }
         },
         {

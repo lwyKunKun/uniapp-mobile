@@ -1,5 +1,5 @@
 <template>
-  <view class="home-container bgc">
+  <view class="home-container bgc scroll-father">
     <view class="home-banner bgc-padding">
       <u-swiper
         :list="imgList"
@@ -13,7 +13,7 @@
         <u-cell-item icon="volume-up" title="通知公告"></u-cell-item>
       </u-cell-group>
     </view>
-    <view class="list-container">
+    <view class="list-container scroll-area">
       <scrollList
         :refresher="true"
         @onRefresh="refresh"
@@ -254,25 +254,20 @@ export default {
     padding: 20rpx 20rpx 10rpx 0 !important;
   }
 }
-.home-bottom {
-  .u-tabbar__content__item__text {
-    line-height: 40rpx;
-  }
-}
 </style>
 
 <style lang="scss" scoped>
 .home-container {
-  display: flex;
-  flex-direction: column;
+  //   display: flex;
+  //   flex-direction: column;
 
   .home-notice {
     width: 100%;
     padding: 20rpx 0;
   }
   .list-container {
-    flex: 1;
-    position: relative;
+    // flex: 1;
+    // position: relative;
   }
   .home-notice-list {
     .home-notice-body {

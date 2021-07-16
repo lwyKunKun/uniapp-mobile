@@ -7,3 +7,13 @@
 .bgc-padding {
     padding: 20rpx;
 }
+
+.scroll-father {
+    display: flex;
+    flex-direction: column;
+}
+
+.scroll-area {
+    flex: 1;
+    position: relative;
+}

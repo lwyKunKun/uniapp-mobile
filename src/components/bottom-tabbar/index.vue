@@ -1,12 +1,12 @@
 <!-- 底部tabbar组件 -->
 <template>
-  <view class="home-bottom">
+  <view class="bottom-bar">
     <u-tabbar
       v-model="current"
       :list="bottomList"
       active-color="#1CBBB4"
       inactive-color="#BABBBB"
-      icon-size="50"
+      icon-size="45"
       @change="change"
     ></u-tabbar>
   </view>
