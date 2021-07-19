@@ -1,6 +1,6 @@
 <template>
   <scroll-view
-    class="scrool-more"
+    class="scroll-more"
     scroll-y="true"
     scroll-with-animation="true"
     :refresher-enabled="refresher"
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scrool-more {
+.scroll-more {
   position: absolute;
   left: 0;
   right: 0;

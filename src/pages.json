@@ -28,8 +28,7 @@
                     },
                     "bounce": "none",
                     "scrollIndicator": "none"
-                },
-                "onReachBottomDistance": 100 //距离底部多远时触发 单位px
+                }
             }
         },
         {
@@ -47,7 +46,8 @@
                 "navigationBarBackgroundColor": "#1CBBB4",
                 "navigationBarTextStyle": "white",
                 "app-plus": {
-                    "bounce": "none"
+                    "bounce": "none",
+                    "scrollIndicator": "none"
                 }
             }
         },

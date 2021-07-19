@@ -2,9 +2,7 @@
 <template>
   <view class="use-container scroll-father">
     <view class="scroll-area">
-      <scroll-view scroll-y>
-        <useListTemplate :data="data"></useListTemplate>
-      </scroll-view>
+      <useListTemplate :data="data"></useListTemplate>
     </view>
     <bottomTabbar></bottomTabbar>
   </view>
@@ -157,12 +155,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .use-container {
-  .scrool-more {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
+  width: 100%;
+  height: 100vh;
 }
 </style>

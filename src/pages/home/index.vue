@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import bottomTabbar from '../../components/bottom-tabbar'
-import scrollList from '../../components/scroll-list-refresh'
+import bottomTabbar from '@/components/bottom-tabbar'
+import scrollList from '@/components/scroll-list-refresh'
 export default {
   components: {
     bottomTabbar,
@@ -258,16 +258,9 @@ export default {
 
 <style lang="scss" scoped>
 .home-container {
-  //   display: flex;
-  //   flex-direction: column;
-
   .home-notice {
     width: 100%;
     padding: 20rpx 0;
-  }
-  .list-container {
-    // flex: 1;
-    // position: relative;
   }
   .home-notice-list {
     .home-notice-body {

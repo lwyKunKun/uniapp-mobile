@@ -73,7 +73,7 @@
 <script>
 import addUse from "@/components/useList/modules/addUse"
 export default {
-  name: "AppList",
+  name: "dragList",
   props: {
     listData: {
       type: Array,

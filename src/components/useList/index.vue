@@ -1,6 +1,11 @@
 <!-- 应用中心列表模板 -->
 <template>
-  <view class="use-list-template">
+  <scroll-view
+    class="scroll"
+    scroll-y="true"
+    scroll-with-animation="true"
+    scroll-x="false"
+  >
     <view class="list-container" v-for="(item, index) in data" :key="index">
       <view class="list-title">
         <u-icon
@@ -12,17 +17,17 @@
         <text class="title">{{ item.title }}</text>
       </view>
       <view class="list-use">
-        <AppList :listData="item.icon" @listChange="listChange"></AppList>
+        <dragList :listData="item.icon" @listChange="listChange"></dragList>
       </view>
     </view>
-  </view>
+  </scroll-view>
 </template>
 
 <script>
-import AppList from '@/components/useList/modules/dragList.vue'
+import dragList from '@/components/useList/modules/dragList.vue'
 export default {
   components: {
-    AppList
+    dragList
   },
   props: {
     data: {
@@ -54,15 +59,22 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-.use-list-template {
-  padding: 0 20rpx 20rpx;
+.scroll {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 .list-container {
+  box-sizing: border-box;
   width: 100%;
   height: auto;
+  padding: 0 20rpx 20rpx;
   .list-title {
     width: 100%;
-    border: 2rpx solid #f7fcfc;
+    border-bottom: 2rpx solid #eee;
     height: 80rpx;
     line-height: 80rpx;
     .title {
