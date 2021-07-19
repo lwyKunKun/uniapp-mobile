@@ -223,7 +223,7 @@ export default {
     },
     AppLi_touchend (index) {
       if (!this.showDelete && !this.IsDeleteAfter && !this.IsCancelDelete) {
-        this.getInto(this.touchItem.appName)
+        this.getInto(this.touchItem)
       } else {
         // 为下次getInto清除状态
         this.IsDeleteAfter = false;
@@ -254,11 +254,14 @@ export default {
       this.IsDeleteAfter = true;
       this.resetListDom()
     },
-    getInto (appName) {
+    getInto (data) {
       uni.showToast({
-        title: "进入" + appName,
+        title: "进入" + data.appName,
         icon: "none"
       })
+      uni.navigateTo({
+        url: `${data.appLink}`
+      });
     },
     resetListDom () {
       let _this = this;

@@ -1,4 +1,4 @@
-<!-- 应用 -->
+<!-- 应用中心 -->
 <template>
   <view class="use-container scroll-father">
     <view class="scroll-area">
@@ -93,7 +93,7 @@ export default {
               appId: 10,
               appIcon: "tubiaozhizuomoban-38",
               appName: "车辆管理",
-              appLink: ""
+              appLink: "/pages/use/useCenter/carManage/index"
             },
             {
               appId: 11,

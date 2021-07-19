@@ -54,10 +54,8 @@
         {
             "path": "pages/mine/index",
             "style": {
-                "style": {
-                    "app-plus": {
-                        "titleNView": false
-                    }
+                "app-plus": {
+                    "titleNView": false
                 }
             }
         },
@@ -71,6 +69,22 @@
                     "bounce": "none",
                     "scrollIndicator": "none" //当前页面不显示滚动条
                 }
+            }
+        },
+        {
+            "path": "pages/use/useCenter/carManage/index",
+            "style": {
+                "navigationBarTitleText": "选择车辆",
+                "navigationBarBackgroundColor": "#1CBBB4",
+                "navigationBarTextStyle": "white"
+            }
+        },
+        {
+            "path": "pages/use/useCenter/carManage/modules/useCarApply",
+            "style": {
+                "navigationBarTitleText": "用车申请",
+                "navigationBarBackgroundColor": "#1CBBB4",
+                "navigationBarTextStyle": "white"
             }
         }
     ],

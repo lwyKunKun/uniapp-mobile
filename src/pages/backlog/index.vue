@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import bottomTabbar from '../../components/bottom-tabbar/index.vue'
-import scrollList from '../../components/scroll-list-refresh'
+import bottomTabbar from '@/components/bottom-tabbar/index.vue'
+import scrollList from '@/components/scroll-list-refresh'
 export default {
   components: {
     bottomTabbar,
