@@ -84,7 +84,10 @@
             "style": {
                 "navigationBarTitleText": "用车申请",
                 "navigationBarBackgroundColor": "#1CBBB4",
-                "navigationBarTextStyle": "white"
+                "navigationBarTextStyle": "white",
+                "app-plus": {
+                    "bounce": "none"
+                }
             }
         }
     ],

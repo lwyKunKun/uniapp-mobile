@@ -16,7 +16,6 @@
               @click="click"
               @open="open"
               :options="options"
-              @close="close"
               :show="item.show"
             >
               <view class="item">
