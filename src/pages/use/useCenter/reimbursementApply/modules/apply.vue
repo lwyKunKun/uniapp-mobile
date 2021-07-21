@@ -1,13 +1,11 @@
-<!-- 用车申请 -->
+<!-- 报销申请 -->
 <template>
-  <view class="bgc useCarApply">
+  <view class="bgc">
     <applyTemplate
       :form="form"
       :formOption="formOption"
-      @openDate="openDate"
-      @onChoose="onChoose"
-      @onRemove="onRemove"
-      @submitApply="submitApply"
+      @openSelect="openSelect"
+      @confirmSelect="confirmSelect"
     ></applyTemplate>
   </view>
 </template>
@@ -22,63 +20,66 @@ export default {
   data () {
     return {
       form: {
-        carName: '',//申请车辆
-        useCarTime: '',//用车时间
-        backTime: '',//返回时间
-        destination: '',//目的地
-        peer: '',//同行人员
-        useCarReason: '',//用车原因
+        applyType: '',//申请类型
+        reimbursement: '',//报销金额
+        applyReason: '',//申请理由
         warn: '',//提醒方式
       },
       formOption: [
         {
-          label: '申请车辆',
+          label: '申请类型',
+          type: 'select',
+          prop: 'applyType',
+          model: 'applyType',
+          show: false,
+          list: [
+            {
+              value: '1',
+              label: '招待费'
+            },
+            {
+              value: '2',
+              label: '办公费'
+            },
+            {
+              value: '3',
+              label: '差旅费'
+            },
+            {
+              value: '4',
+              label: '水电费'
+            },
+            {
+              value: '5',
+              label: '燃油费'
+            },
+            {
+              value: '6',
+              label: '维修费'
+            }
+          ],
+          click: 'openSelect',
+          confirm: 'confirmSelect',
+          width: 130,
+          placeholder: '请选择类型'
+        },
+        {
+          label: '报销金额',
           type: 'text',
-          prop: 'carName',
-          model: 'carName'
-        },
-        {
-          label: '用车时间',
-          type: 'date',
-          prop: 'useCarTime',
-          model: 'useCarTime',
-          mode: 'date',
-          change: 'openDate'
-        },
-        {
-          label: '返回时间',
-          type: 'date',
-          prop: 'backTime',
-          model: 'backTime',
-          mode: 'date',
-          change: 'openDate'
-        },
-        {
-          label: '目的地',
-          type: 'text',
-          prop: 'destination',
-          model: 'destination',
-          placeholder: '请输入目的地',
+          prop: 'reimbursement',
+          model: 'reimbursement',
+          width: 130,
+          placeholder: '请输入金额',
           isImport: true,
           width: 130
-
         },
         {
-          label: '同行人员',
-          type: 'text',
-          prop: 'peer',
-          model: 'peer',
-          placeholder: '请输入同行人员，多个用逗号隔开',
-          isImport: true,
-          width: 130
-        },
-        {
-          label: '用车原因',
+          label: '申请理由',
           type: 'textarea',
-          prop: 'useCarReason',
-          model: 'useCarReason',
+          prop: 'applyReason',
+          model: 'applyReason',
+          placeholder: '请项目描述您要申请的内容',
           mode: 'textarea',
-          placeholder: '请详细描述您要用车的原因...',
         },
         {
           label: '提醒方式',
@@ -113,10 +114,9 @@ export default {
           num: 0,
           onRemove: 'onRemove'
         },
+
       ]
     };
-  },
-  onLoad (option) {
   },
 
   mounted () { },
@@ -124,12 +124,18 @@ export default {
   computed: {},
 
   methods: {
-    openDate (e, model) {//打开时间选择器
+    openSelect (model) {//select选择事件
       this.formOption.forEach(item => {
         if (item.model == model) {
-          this.form[model] = e
+          item.show = true
         }
       })
+
+    },
+    confirmSelect (e, model) {//select选择确认
+      console.log(e, 'e');
+      console.log(model, 'model');
+      this.form[model] = e[0].label
     },
     onChoose (data) {//选择图片
       this.formOption.forEach(item => {
@@ -145,16 +151,9 @@ export default {
         }
       })
     },
-    submitApply () {//点击提交申请
-      console.log('提交申请');
-
-    }
   }
 }
 
 </script>
 <style lang='scss' scoped>
-.useCarApply {
-  box-sizing: border-box;
-}
 </style>

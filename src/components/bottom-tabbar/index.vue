@@ -58,3 +58,10 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.bottom-bar {
+  /deep/.u-tabbar__content__item__text {
+    line-height: 0;
+  }
+}
+</style>

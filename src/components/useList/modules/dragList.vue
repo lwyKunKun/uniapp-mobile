@@ -295,19 +295,16 @@ export default {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  padding-left: 2.5%;
-  box-sizing: border-box;
 }
 
 .app-li {
-  width: 18%;
+  width: calc(100% / 4);
   height: 160rpx;
   text-align: center;
   display: flex;
   flex-direction: column;
   padding: 20rpx;
   position: relative;
-  //   border: 2rpx solid red;
   .appIcon {
     font-size: 60rpx;
     color: $default-color;

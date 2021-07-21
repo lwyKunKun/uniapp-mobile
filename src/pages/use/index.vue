@@ -27,7 +27,7 @@ export default {
               appId: 1,
               appIcon: "leasingcloud_baoxiaoshenhe",
               appName: "报销申请",
-              appLink: ""
+              appLink: "/pages/use/useCenter/reimbursementApply/index"
             },
             {
               appId: 2,

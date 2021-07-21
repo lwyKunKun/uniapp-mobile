@@ -89,6 +89,30 @@
                     "bounce": "none"
                 }
             }
+        },
+        {
+            "path": "pages/use/useCenter/reimbursementApply/index",
+            "style": {
+                "navigationBarTitleText": "报销列表",
+                "navigationBarBackgroundColor": "#1CBBB4",
+                "navigationBarTextStyle": "white"
+            }
+        },
+        {
+            "path": "pages/use/useCenter/reimbursementApply/modules/details",
+            "style": {
+                "navigationBarTitleText": "报销详情",
+                "navigationBarBackgroundColor": "#1CBBB4",
+                "navigationBarTextStyle": "white"
+            }
+        },
+        {
+            "path": "pages/use/useCenter/reimbursementApply/modules/apply",
+            "style": {
+                "navigationBarTitleText": "报销申请",
+                "navigationBarBackgroundColor": "#1CBBB4",
+                "navigationBarTextStyle": "white"
+            }
         }
     ],
     "tabBar": {

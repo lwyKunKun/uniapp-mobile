@@ -9,9 +9,11 @@
             :label="item.label"
             v-if="item.type === 'text'"
             :prop="item.prop"
+            :label-width="item.width"
             ><u-input
               v-model="form[item.model]"
               :placeholder="item.placeholder"
+              :class="item.isImport ? 'u-input-import' : ''"
           /></u-form-item>
           <u-form-item
             :label="item.label"
@@ -24,6 +26,7 @@
               :type="item.mode"
               :placeholder="item.placeholder"
               :auto-height="true"
+              height="300"
           /></u-form-item>
           <u-form-item :label="item.label" v-if="item.type === 'date'">
             <uni-datetime-picker
@@ -80,9 +83,35 @@
               ></u-upload>
             </view>
           </u-form-item>
+          <u-form-item
+            :label="item.label"
+            v-if="item.type === 'select'"
+            :prop="item.prop"
+            :label-width="item.width"
+          >
+            <u-input
+              v-model="form[item.model]"
+              type="select"
+              @click="item.click ? $emit(item.click, item.model) : ''"
+              class="u-input-import"
+              :placeholder="item.placeholder"
+            />
+            <u-select
+              v-model="item.show"
+              :list="item.list"
+              @confirm="
+                item.confirm ? $emit(item.confirm, $event, item.model) : ''
+              "
+            ></u-select>
+          </u-form-item>
         </u-col>
       </u-row>
     </u-form>
+    <view>
+      <u-button shape="circle" class="custom-button" @click="submit"
+        >提交申请</u-button
+      >
+    </view>
   </view>
 </template>
 
@@ -98,7 +127,6 @@ export default {
       type: Array,
       default: () => []
     },
-
   },
 
   data () {
@@ -111,20 +139,31 @@ export default {
   computed: {},
 
   methods: {
+    submit () {//提交申请
+      this.$emit('submitApply')
+
+    }
   }
 }
 
 </script>
-<style lang="scss">
+
+<style lang='scss' scoped>
 .apply-template-container {
-  padding: 20rpx;
-  box-sizing: border-box;
-  /deep/.u-col {
-    box-sizing: border-box;
-  }
   width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  /deep/.u-col {
+    padding: 0 !important;
+  }
+  /deep/.u-form-item {
+    padding: 20rpx;
+  }
   /deep/.u-input {
     text-align: right !important;
+  }
+  .u-input-import {
+    text-align: left !important;
   }
   /deep/.uni-date {
     width: 100%;
@@ -134,6 +173,10 @@ export default {
     text-align: left;
   }
   .item-textarea {
+    padding: 0 !important;
+    /deep/.u-form-item--left {
+      padding: 0 20rpx;
+    }
     /deep/.u-form-item--right {
       background-color: #fff;
     }
@@ -141,29 +184,41 @@ export default {
       margin-left: 20rpx;
     }
   }
-  .item-upload {
-    /deep/.u-form-item--right__content__slot {
-      flex-direction: column !important;
-    }
-  }
   .item-radio {
+    padding: 0 !important;
+    /deep/.u-form-item--left {
+      padding: 0 20rpx;
+    }
     /deep/.u-form-item--right {
       background-color: #fff;
       padding-left: 20rpx;
     }
   }
+  .item-upload {
+    padding: 0;
+    /deep/.u-form-item--left {
+      padding: 0 20rpx;
+    }
+    /deep/.u-form-item--right__content__slot {
+      flex-direction: column !important;
+    }
+  }
+  .custom-button {
+    background-color: $default-color;
+    border: none;
+    color: #fff;
+    width: 80%;
+    margin: 50rpx auto;
+  }
 }
-</style>
-<style lang='scss' scoped>
-/deep/.hint {
+.hint {
   width: 100%;
   display: flex;
   background-color: #fff;
-  padding: 0 10rpx;
+  padding: 0 20rpx !important;
   flex: 0 0 100%;
   flex-direction: row;
   justify-content: flex-start;
-  box-sizing: border-box;
   .num {
     margin-left: auto;
     color: #b8b9b9;
@@ -172,5 +227,8 @@ export default {
 .upload {
   width: 100%;
   background-color: #fff;
+  /deep/.u-upload {
+    padding: 0 10rpx !important;
+  }
 }
 </style>
