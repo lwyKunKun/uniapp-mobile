@@ -99,17 +99,17 @@
             }
         },
         {
-            "path": "pages/use/useCenter/reimbursementApply/modules/details",
+            "path": "pages/use/useCenter/reimbursementApply/modules/apply",
             "style": {
-                "navigationBarTitleText": "报销详情",
+                "navigationBarTitleText": "报销申请",
                 "navigationBarBackgroundColor": "#1CBBB4",
                 "navigationBarTextStyle": "white"
             }
         },
         {
-            "path": "pages/use/useCenter/reimbursementApply/modules/apply",
+            "path": "pages/use/useCenter/checking/index",
             "style": {
-                "navigationBarTitleText": "报销申请",
+                "navigationBarTitleText": "考勤班次",
                 "navigationBarBackgroundColor": "#1CBBB4",
                 "navigationBarTextStyle": "white"
             }

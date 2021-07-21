@@ -123,7 +123,7 @@ export default {
               appId: 15,
               appIcon: "kaoqin",
               appName: "考勤管理",
-              appLink: ""
+              appLink: "/pages/use/useCenter/checking/index"
             },
             {
               appId: 16,
