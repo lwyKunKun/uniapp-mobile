@@ -1,29 +1,55 @@
 <!-- 考勤班次 -->
 <template>
   <view>
-    <uni-calendar
-      :insert="true"
-      :lunar="true"
-      @change="change"
-      :selected="selected"
-    ></uni-calendar>
+    <calendar
+      :mark="mark"
+      @monthChange="monthChange"
+      :range="range"
+      :canDrag="true"
+    >
+    </calendar>
   </view>
 </template>
 
 <script>
+import calendar from '@/components/calendar/index.vue'
 export default {
-  components: {},
+  components: {
+    calendar
+  },
 
   data () {
     return {
-      selected: [
+      mark: [
         {
-          date: '2021-06-21', info: '考勤',
+          time: '2021-7-21',
+          text: '考勤',
+          markPoint: true,
+          markTextColor: 'red',
+          isIcon: true,
+          icon: 'ziyuan',
+          pointTextColor: 'red'
         },
         {
-          date: '2021-07-21', info: '考勤',
+          time: '2021-7-23',
+          text: '考勤',
+          markPoint: true,
+          markTextColor: 'red',
+          pointTextColor: 'black'
+        },
+        {
+          time: '2021-7-24',
+          text: '考勤',
+          markPoint: true,
+          markTextColor: 'red',
+          pointText: 'la',
+          pointTextColor: 'pink'
         }
-      ]
+      ],
+      range: {
+        rangeStart: undefined, //设置标记范围开始，yyyyMM-dd
+        rangeEnd: undefined //设置标记范围结束，yyyyMM-dd
+      },
     };
   },
 
@@ -32,10 +58,9 @@ export default {
   computed: {},
 
   methods: {
-    change () {
-      console.log('移动');
-
-    }
+    monthChange (data) {//月份改变
+      console.log(data, 'data')
+    },
   }
 }
 
