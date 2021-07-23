@@ -1,17 +1,17 @@
 
 <!-- 
 1.属性：
-currentTime	String	当前时间	当前设定时间 yyyy-MM-dd
-mark	     Array	-	       标记点列表
-lastText	String	'〈'	   上个月按键文字
-nextText	String	'〉'	   下个月按键文字
-maskColor	String	#01AAED	   全局标记点颜色，包括点和文字
-showLunar	Boolean	true	   是否显示农历，mask优先级高
-range	    Object	-	       设置标记范围
-rangeMode	Boolean	false	   是否开启范围选择模式
-dateStart	String	'1970-01-01'	日历起始时间 yyyy-MM-dd
-dateEnd	    String	'2100-12-31'	日历结束时间 yyyy-MM-dd
-canDrag	    Boolean	true	        是否可以滚动
+currentTime	String	当前时间	        当前设定时间 yyyy-MM-dd
+mark	     Array	-	               标记点列表
+lastText	String	'〈'	           上个月按键文字
+nextText	String	'〉'	           下个月按键文字
+maskColor	String	#01AAED	           全局标记点颜色，包括点和文字
+showLunar	Boolean	true	           是否显示农历，mask优先级高
+range	    Object	-	               设置标记范围
+rangeMode	Boolean	false	           是否开启范围选择模式
+dateStart	String	'1970-01-01'	   日历起始时间 yyyy-MM-dd
+dateEnd	    String	'2100-12-31'	   日历结束时间 yyyy-MM-dd
+canDrag	    Boolean	true	           是否可以滚动
 
 2.mark 标记点列表 属性说明：
 time	        String	   -	     标记时间 yyyy-MM-dd
