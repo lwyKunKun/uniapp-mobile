@@ -1,26 +1,36 @@
 <!-- 待办 -->
 <template>
   <view class="backlog-container bgc">
-    <u-tabs
-      :list="tabList"
-      :is-scroll="false"
-      :current="current"
-      @change="tabsChange"
-      :bar-width="barWidth"
-      active-color="#1CBBB4"
-      inactive-color="#6D6D6F"
-    ></u-tabs>
-    <view class="list-container">
-      <scrollList
-        :refresher="true"
-        @onRefresh="refresh"
-        @onInfinite="infiniteScroll"
-        :infiniting="true"
-        :loadMoreState="loadMoreState"
-        :isNotEmpty="isNotEmpty"
-      >
+    <z-paging
+      ref="paging"
+      v-model="currentList"
+      @query="queryList"
+      auto-show-back-to-top
+      refresher-threshold="100rpx"
+      :fixed="false"
+    >
+      <!-- 需要固定在顶部不滚动的view放在slot="top"的view中，如果需要跟着滚动，则不要设置slot="top" -->
+      <view slot="top">
+        <u-tabs
+          :list="tabList"
+          :is-scroll="false"
+          :current="tabIndex"
+          @change="tabsChange"
+          :bar-width="barWidth"
+          active-color="#1CBBB4"
+          inactive-color="#6D6D6F"
+        ></u-tabs>
+      </view>
+      <!-- 自定义没有更多数据view -->
+      <custom-nomore slot="loadingMoreNoMore"></custom-nomore>
+      <!-- 设置自己的空数据组件 -->
+      <!-- <empty-view slot="empty"></empty-view> -->
+
+      <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
+      <!-- list数据，建议像下方这样在item外层套一个view，而非直接for循环item，因为slot插入有数量限制 -->
+      <view class="list">
         <u-card
-          v-for="(item, index) in currentList.list"
+          v-for="(item, index) in currentList"
           :key="index"
           :title="item.user"
           :sub-title="item.state"
@@ -34,9 +44,12 @@
             <view class="time">{{ item.time }}</view>
           </view>
         </u-card>
-      </scrollList>
-    </view>
-    <bottomTabbar></bottomTabbar>
+      </view>
+      <view slot="bottom">
+        <!-- 这里接收页面传进来的slot，这样相当于将页面传进来的slot传给z-paging的slot="bottom"了 -->
+        <bottomTabbar></bottomTabbar>
+      </view>
+    </z-paging>
   </view>
 </template>
 
@@ -58,96 +71,99 @@ export default {
           name: '已处理'
         },
       ],
-      pendingList: {
-        list: [
-          {
-            id: 1,
-            user: '1雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 2,
-            user: '2雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 3,
-            user: '2雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 4,
-            user: '4雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 5,
-            user: '5雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 6,
-            user: '6雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 7,
-            user: '7雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 8,
-            user: '8雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 9,
-            user: '9雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },
-          {
-            id: 10,
-            user: '10雷婉悦',
-            state: '已审核',
-            time: '2021-03-02 01:14:52',
-            content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-          },],
-        total: 21,
-        current: 1,
-        pages: 10
-      },//待处理数据
-      processedList: {},//已处理数据
-      current: 0,
+      pendingList: [
+        {
+          id: 1,
+          user: '1雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 2,
+          user: '2雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 3,
+          user: '3雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 4,
+          user: '4雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 5,
+          user: '5雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 6,
+          user: '6雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 7,
+          user: '7雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 8,
+          user: '8雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 9,
+          user: '9雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 10,
+          user: '10雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 11,
+          user: '11雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+        {
+          id: 12,
+          user: '12雷婉悦',
+          state: '已审核',
+          time: '2021-03-02 01:14:52',
+          content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
+        },
+      ],//待处理数据
+      processedList: [],//已处理数据
+      tabIndex: 0,//tabs条
       barWidth: 100,
-      currentList: {},//当前数据
-      loadMoreState: 'more',
-      isNotEmpty: true,//数据是否不为空
-      newPendingList: [],
+      currentList: [],//当前数据
     };
   },
   created () {
-    this.currentList = this.pendingList
-    this.newPendingList = this.currentList.list
-    this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
-    this.judgeStatus();
   },
 
   mounted () {
@@ -155,156 +171,23 @@ export default {
   },
   methods: {
     tabsChange (index) {
-      this.current = index;
-      if (this.current == 0) {
-        this.currentList = {
-          ...this.pendingList,
-          list: this.newPendingList
-        }
-      } else {
-        this.currentList = this.processedList
-      }
-      this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
-      this.judgeStatus();
+      this.tabIndex = index;
+      //当切换tab或搜索时请调用组件的reload方法，请勿直接调用：queryList方法！！
+      this.$refs.paging.reload();
     },
-    refresh ({ complete }) {
-      setTimeout(() => {
-        complete(); // 结束下拉刷新
-      }, 1000);
-    },
-    infiniteScroll ({ setStatus }) {
-      if (this.currentList.current * this.currentList.pages >= this.currentList.total) {
-        setStatus('noMore', true);
-      } else {
-        this.getNewList(setStatus)
-      }
-    },
-    getNewList (callback) {//上拉获取更多数据
-      callback('loading', false)
-      setTimeout(() => {
-        if (this.current == 0) {//待处理
-          this.pendingList = {
-            list: [
-              {
-                id: 11,
-                user: '11雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 12,
-                user: '12雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 13,
-                user: '13雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 14,
-                user: '14雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 15,
-                user: '15雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 16,
-                user: '16雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 17,
-                user: '17雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 18,
-                user: '18雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 19,
-                user: '19雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-              {
-                id: 20,
-                user: '20雷婉悦',
-                state: '已审核',
-                time: '2021-03-02 01:14:52',
-                content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-              },
-            ],
-            total: 21,
-            current: 2,
-            pages: 10
-          },//待处理数据
-            this.newPendingList.push(...this.pendingList.list)
-          this.currentList = {
-            ...this.pendingList,
-            list: this.newPendingList
-          }
-          setTimeout(() => {
-            this.pendingList = {
-              list: [
-                {
-                  id: 21,
-                  user: '21雷婉悦',
-                  state: '已审核',
-                  time: '2021-03-02 01:14:52',
-                  content: '112222222222221啦啦啦啦啦啦啦啦啦啦啦绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿绿aaaaaaaa'
-                },
-              ],
-              total: 21,
-              current: 3,
-              pages: 10
-            },//待处理数据
-              this.newPendingList.push(...this.pendingList.list)
-            this.currentList = {
-              ...this.pendingList,
-              list: this.newPendingList
-            }
-
-
-          }, 1000)
-
-        } else {//已处理
-
-        }
-      }, 1000);
-    },
-    judgeStatus () {//判断一开始的状态
-      if (this.currentList.total < this.currentList.pages) {
-        this.loadMoreState = 'noMore'
-      }
+    queryList (pageNo, pageSize) {
+      this.$request.queryList(pageNo, pageSize, this.tabIndex, this.tabIndex == 0 ? this.pendingList : this.processedList, (data) => {
+        this.$refs.paging.complete(data);
+      })
     },
     gotoDetail (item) {//点击跳转详情
       console.log(item);
       uni.navigateTo({
         url: '/pages/backlog/modules/details?item=' + encodeURIComponent(JSON.stringify(item))
       });
-    }
+    },
+
+
 
   }
 }
