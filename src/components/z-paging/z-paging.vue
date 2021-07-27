@@ -1,16 +1,3 @@
- <!--                        _             
-  ____     _ __   __ _  __ _(_)_ __   __ _ 
- |_  /____| '_ \ / _` |/ _` | | '_ \ / _` |
-  / /_____| |_) | (_| | (_| | | | | | (_| |
- /___|    | .__/ \__,_|\__, |_|_| |_|\__, |
-          |_|          |___/         |___/ 
-V1.9.4
-by ZXLee 2021-07-21
--- >
-<!-- API文档地址：http://z-paging.com -->
-<!-- github地址:https://github.com/SmileZXLee/uni-z-paging -->
-<!-- dcloud地址:https://ext.dcloud.net.cn/plugin?id=3935 -->
-<!-- 反馈QQ群：790460711 -->
 
 <template name="z-paging">
 	<!-- #ifndef APP-NVUE -->
@@ -236,6 +223,6 @@ by ZXLee 2021-07-21
 <!-- #endif -->
 
 <style scoped>
-	@import "./css/z-paging-main.css";
-	@import "./css/z-paging-static.css";
+@import './css/z-paging-main.css';
+@import './css/z-paging-static.css';
 </style>

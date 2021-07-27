@@ -1,63 +1,64 @@
 <template>
   <view class="home-container bgc scroll-father">
-    <view class="home-banner bgc-padding">
-      <u-swiper
-        :list="imgList"
-        border-radius="10"
-        :title="true"
-        :effect3d="true"
-      ></u-swiper>
-    </view>
-    <view class="home-notice">
-      <u-cell-group :border="false">
-        <u-cell-item icon="volume-up" title="通知公告"></u-cell-item>
-      </u-cell-group>
-    </view>
-    <view class="list-container scroll-area">
-      <scrollList
-        :refresher="true"
-        @onRefresh="refresh"
-        @onInfinite="infiniteScroll"
-        :infiniting="true"
-        :loadMoreState="loadMoreState"
-      >
-        <view class="home-notice-list">
-          <u-card
-            :show-head="false"
-            class="card-box"
-            v-for="(item, index) in currentList.list"
-            :key="index"
-          >
-            <view class="" slot="body">
-              <view class="home-notice-body">
-                <view class="home-notice-top-left">
-                  <view class="notice">公告</view>
+    <z-paging
+      ref="paging"
+      v-model="currentList"
+      @query="queryList"
+      auto-show-back-to-top
+      refresher-threshold="100rpx"
+      :fixed="false"
+    >
+      <view slot="top">
+        <view class="home-banner bgc-padding">
+          <u-swiper
+            :list="imgList"
+            border-radius="10"
+            :title="true"
+            :effect3d="true"
+          ></u-swiper>
+        </view>
+        <view class="home-notice">
+          <u-cell-group :border="false">
+            <u-cell-item icon="volume-up" title="通知公告"></u-cell-item>
+          </u-cell-group>
+        </view>
+      </view>
+      <view class="home-notice-list">
+        <u-card
+          :show-head="false"
+          class="card-box"
+          v-for="(item, index) in currentList"
+          :key="index"
+        >
+          <view class="" slot="body">
+            <view class="home-notice-body">
+              <view class="home-notice-top-left">
+                <view class="notice">公告</view>
+              </view>
+              <view class="home-notice-top-right">
+                <view class="title-top">
+                  <view class="title">{{ item.title }}</view>
+                  <view class="point"></view>
                 </view>
-                <view class="home-notice-top-right">
-                  <view class="title-top">
-                    <view class="title">{{ item.title }}</view>
-                    <view class="point"></view>
-                  </view>
-                  <view class="content-middle">{{ item.content }}</view>
-                  <view class="date-bottom">{{ item.date }}</view>
-                </view>
+                <view class="content-middle">{{ item.content }}</view>
+                <view class="date-bottom">{{ item.date }}</view>
               </view>
             </view>
-          </u-card>
-        </view>
-      </scrollList>
-    </view>
-    <bottomTabbar></bottomTabbar>
+          </view>
+        </u-card>
+      </view>
+      <view slot="bottom">
+        <bottomTabbar></bottomTabbar>
+      </view>
+    </z-paging>
   </view>
 </template>
 
 <script>
 import bottomTabbar from '@/components/bottom-tabbar'
-import scrollList from '@/components/scroll-list-refresh'
 export default {
   components: {
     bottomTabbar,
-    scrollList
 
   },
   data () {
@@ -77,168 +78,76 @@ export default {
         },
 
       ],
-      contentList: {
-        list: [
-          {
-            title: '1关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '2明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '3明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '4明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '5明天下午三点开会',
-            content: '明天下午三点开会,请大家准时到会议室参加!',
-            date: '2021-07-07 05:30:21'
-          },
-          {
-            title: '6关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '7关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '8关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '9关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-          {
-            title: '10关于各部门做好2021年工作计划的通知',
-            content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-            date: '2021-03-02 01:00:21'
-          },
-        ],
-        total: 20,
-        current: 1,
-        pages: 10
-      },
-      loadMoreState: 'more',
-      newList: [],
-      currentList: {},
-
-
-
+      contentList: [
+        {
+          title: '1关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '2明天下午三点开会',
+          content: '明天下午三点开会,请大家准时到会议室参加!',
+          date: '2021-07-07 05:30:21'
+        },
+        {
+          title: '3明天下午三点开会',
+          content: '明天下午三点开会,请大家准时到会议室参加!',
+          date: '2021-07-07 05:30:21'
+        },
+        {
+          title: '4明天下午三点开会',
+          content: '明天下午三点开会,请大家准时到会议室参加!',
+          date: '2021-07-07 05:30:21'
+        },
+        {
+          title: '5明天下午三点开会',
+          content: '明天下午三点开会,请大家准时到会议室参加!',
+          date: '2021-07-07 05:30:21'
+        },
+        {
+          title: '6关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '7关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '8关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '9关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '10关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+        {
+          title: '11关于各部门做好2021年工作计划的通知',
+          content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
+          date: '2021-03-02 01:00:21'
+        },
+      ],
+      currentList: [],
     }
   },
   created () {
-    this.currentList = this.contentList
-    this.newList = this.contentList.list
-    this.currentList.total > 0 && this.currentList.list.length > 0 ? this.isNotEmpty = true : this.isNotEmpty = false
-    this.judgeStatus()
   },
   mounted () {
   },
   methods: {
-    refresh ({ complete }) {
-      setTimeout(() => {
-        complete(); // 结束下拉刷新
-      }, 1000);
+    queryList (pageNo, pageSize) {
+      this.$request.queryList(pageNo, pageSize, this.contentList, (data) => {
+        this.$refs.paging.complete(data);
+      })
     },
-    infiniteScroll ({ setStatus }) {
-      if (this.contentList.current * this.contentList.pages >= this.contentList.total) {
-        setStatus('noMore', true);
-      } else {
-        this.getNewList(setStatus)
-      }
-    },
-    getNewList (callback) {//上拉获取更多数据
-      callback('loading', false)
-      setTimeout(() => {
-        this.contentList = {
-          list: [
-            {
-              title: '11关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-            {
-              title: '12明天下午三点开会',
-              content: '明天下午三点开会,请大家准时到会议室参加!',
-              date: '2021-07-07 05:30:21'
-            },
-            {
-              title: '13明天下午三点开会',
-              content: '明天下午三点开会,请大家准时到会议室参加!',
-              date: '2021-07-07 05:30:21'
-            },
-            {
-              title: '14明天下午三点开会',
-              content: '明天下午三点开会,请大家准时到会议室参加!',
-              date: '2021-07-07 05:30:21'
-            },
-            {
-              title: '15明天下午三点开会',
-              content: '明天下午三点开会,请大家准时到会议室参加!',
-              date: '2021-07-07 05:30:21'
-            },
-            {
-              title: '16关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-            {
-              title: '17关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-            {
-              title: '18关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-            {
-              title: '19关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-            {
-              title: '20关于各部门做好2021年工作计划的通知',
-              content: '关于各部门做好2021年工作计划的通知lalallalllllllllllllllll55555555kkkkkkkkk啦啦啦啦啦啦啦啦啦啦啦呜呜呜呜呜呜哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈呜呜呜uwuwuwuwuuwuwuwuwuuw',
-              date: '2021-03-02 01:00:21'
-            },
-          ],
-          total: 20,
-          current: 2,
-          pages: 10
-
-        }
-        this.newList.push(...this.contentList.list)
-        this.currentList = {
-          ...this.contentList,
-          list: this.newList
-        }
-      }, 1000);
-    },
-    change (index) {
-      console.log(index);
-    },
-    judgeStatus () {//判断一开始的状态
-      if (this.contentList.total < this.contentList.pages) {
-        this.loadMoreState = 'noMore'
-      }
-    }
   },
 }
 </script>

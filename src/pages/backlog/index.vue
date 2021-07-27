@@ -55,11 +55,9 @@
 
 <script>
 import bottomTabbar from '@/components/bottom-tabbar/index.vue'
-import scrollList from '@/components/scroll-list-refresh'
 export default {
   components: {
     bottomTabbar,
-    scrollList
   },
   data () {
     return {
@@ -176,7 +174,8 @@ export default {
       this.$refs.paging.reload();
     },
     queryList (pageNo, pageSize) {
-      this.$request.queryList(pageNo, pageSize, this.tabIndex, this.tabIndex == 0 ? this.pendingList : this.processedList, (data) => {
+      console.log(pageNo, 'pageNo');
+      this.$request.queryList(pageNo, pageSize, this.tabIndex == 0 ? this.pendingList : this.processedList, (data) => {
         this.$refs.paging.complete(data);
       })
     },
