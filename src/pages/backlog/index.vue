@@ -24,7 +24,7 @@
       <!-- 自定义没有更多数据view -->
       <custom-nomore slot="loadingMoreNoMore"></custom-nomore>
       <!-- 设置自己的空数据组件 -->
-      <!-- <empty-view slot="empty"></empty-view> -->
+      <empty-view slot="empty"></empty-view>
 
       <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
       <!-- list数据，建议像下方这样在item外层套一个view，而非直接for循环item，因为slot插入有数量限制 -->
