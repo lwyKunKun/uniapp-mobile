@@ -1,5 +1,5 @@
 <template>
-  <view class="home-container bgc scroll-father">
+  <view class="home-container bgc">
     <z-paging
       ref="paging"
       v-model="currentList"
