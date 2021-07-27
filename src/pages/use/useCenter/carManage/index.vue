@@ -1,15 +1,16 @@
 <!-- 选择车辆列表 -->
 <template>
-  <view class="selectCarList bgc scroll-father">
-    <view class="scroll-area">
-      <scrollList
-        :refresher="true"
-        @onRefresh="refresh"
-        @onInfinite="infiniteScroll"
-        :infiniting="true"
-        :loadMoreState="loadMoreState"
-      >
-        <u-card v-for="(item, index) in contentList.list" :key="item.id">
+  <view class="selectCarList bgc">
+    <z-paging
+      ref="paging"
+      v-model="currentList"
+      @query="queryList"
+      auto-show-back-to-top
+      refresher-threshold="100rpx"
+      :fixed="false"
+    >
+      <view class="list">
+        <u-card v-for="(item, index) in currentList" :key="item.id">
           <view class="" slot="body">
             <u-swipe-action
               :index="index"
@@ -41,59 +42,52 @@
             </u-swipe-action>
           </view>
         </u-card>
-      </scrollList>
-    </view>
+      </view>
+    </z-paging>
   </view>
 </template>
 
 <script>
-import scrollList from '@/components/scroll-list-refresh'
 export default {
   components: {
-    scrollList
 
   },
 
   data () {
     return {
-      loadMoreState: 'more',
-      contentList: {
-        list: [
-          {
-            id: 0,
-            carSign: '轿车-宝马(进口)-宝马7系 [空闲]',
-            carName: '宝马7系',
-            drivingLicense: '54654645546',
-            carNum: '5343543',
-            range: "10000KM",
-            images: 'https://cdn.uviewui.com/uview/common/logo.png',
-            show: false
-          },
-          {
-            id: 1,
-            carSign: '越野车-一汽-大众奥迪-奥迪Q5L [空闲]',
-            carName: '奥迪Q5L',
-            drivingLicense: '54654645546',
-            carNum: '5343543',
-            range: "10000KM",
-            images: 'https://cdn.uviewui.com/uview/common/logo.png',
-            show: false
-          },
-          {
-            id: 2,
-            carSign: '越野车-普拉多4.0 [空闲]',
-            carName: '普拉多4.0',
-            drivingLicense: '54654645546',
-            carNum: '5343543',
-            range: "100020KM",
-            images: 'https://cdn.uviewui.com/uview/common/logo.png',
-            show: false,
-          }
-        ],
-        total: 3,
-        current: 1,
-        pages: 10
-      },
+      contentList: [
+        {
+          id: 0,
+          carSign: '轿车-宝马(进口)-宝马7系 [空闲]',
+          carName: '宝马7系',
+          drivingLicense: '54654645546',
+          carNum: '5343543',
+          range: "10000KM",
+          images: 'https://cdn.uviewui.com/uview/common/logo.png',
+          show: false
+        },
+        {
+          id: 1,
+          carSign: '越野车-一汽-大众奥迪-奥迪Q5L [空闲]',
+          carName: '奥迪Q5L',
+          drivingLicense: '54654645546',
+          carNum: '5343543',
+          range: "10000KM",
+          images: 'https://cdn.uviewui.com/uview/common/logo.png',
+          show: false
+        },
+        {
+          id: 2,
+          carSign: '越野车-普拉多4.0 [空闲]',
+          carName: '普拉多4.0',
+          drivingLicense: '54654645546',
+          carNum: '5343543',
+          range: "100020KM",
+          images: 'https://cdn.uviewui.com/uview/common/logo.png',
+          show: false,
+        }
+      ],
+      currentList: [],
       options: [
         {
           text: '选择',
@@ -105,7 +99,6 @@ export default {
     };
   },
   created () {
-    this.judgeStatus();
 
   },
 
@@ -116,41 +109,30 @@ export default {
   computed: {},
 
   methods: {
+    queryList (pageNo, pageSize) {
+      this.$request.queryList(pageNo, pageSize, this.contentList, (data) => {
+        this.$refs.paging.complete(data);
+      })
+    },
     click (index) {
-      this.contentList.list.forEach(item => {
+      this.currentList.forEach(item => {
         if (item.id == index) {
           uni.navigateTo({
             url: `/pages/use/useCenter/carManage/modules/useCarApply?name=${item.carName}`
           });
+          item.show = false
         }
-        item.show = false
+
       })
 
     },
     open (index) {
-      this.contentList.list[index].show = true;
-      this.contentList.list.map((val, idx) => {
-        if (index != idx) this.contentList.list[idx].show = false;
+      this.currentList[index].show = true;
+      this.currentList.map((val, idx) => {
+        if (index != idx) this.currentList[idx].show = false;
       })
 
     },
-    refresh ({ complete }) {
-      setTimeout(() => {
-        complete(); // 结束下拉刷新
-      }, 1000);
-    },
-    infiniteScroll ({ setStatus }) {
-      //   if (this.contentList.current * this.contentList.pages >= this.contentList.total) {
-      //     setStatus('noMore', true);
-      //   } else {
-      //     this.getNewList(setStatus)
-      //   }
-    },
-    judgeStatus () {//判断一开始的状态
-      if (this.contentList.total < this.contentList.pages) {
-        this.loadMoreState = 'noMore'
-      }
-    }
   }
 }
 
