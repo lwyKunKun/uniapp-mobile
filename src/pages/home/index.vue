@@ -48,17 +48,15 @@
         </u-card>
       </view>
       <view slot="bottom">
-        <bottomTabbar></bottomTabbar>
+        <bottom-tabbar></bottom-tabbar>
       </view>
     </z-paging>
   </view>
 </template>
 
 <script>
-import bottomTabbar from '@/components/bottom-tabbar'
 export default {
   components: {
-    bottomTabbar,
 
   },
   data () {

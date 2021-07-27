@@ -47,17 +47,15 @@
       </view>
       <view slot="bottom">
         <!-- 这里接收页面传进来的slot，这样相当于将页面传进来的slot传给z-paging的slot="bottom"了 -->
-        <bottomTabbar></bottomTabbar>
+        <bottom-tabbar></bottom-tabbar>
       </view>
     </z-paging>
   </view>
 </template>
 
 <script>
-import bottomTabbar from '@/components/bottom-tabbar/index.vue'
 export default {
   components: {
-    bottomTabbar,
   },
   data () {
     return {

@@ -2,15 +2,13 @@
 <template>
   <view class="mine-container">
     这里是我的页面
-    <bottomTabbar></bottomTabbar>
+    <bottom-tabbar></bottom-tabbar>
   </view>
 </template>
 
 <script>
-import bottomTabbar from '../../components/bottom-tabbar/index.vue'
 export default {
   components: {
-    bottomTabbar
   },
 
   data () {

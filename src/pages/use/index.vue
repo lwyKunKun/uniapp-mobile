@@ -4,16 +4,14 @@
     <view class="scroll-area">
       <useListTemplate :data="data"></useListTemplate>
     </view>
-    <bottomTabbar></bottomTabbar>
+    <bottom-tabbar></bottom-tabbar>
   </view>
 </template>
 
 <script>
 import useListTemplate from '@/components/useList/index.vue'
-import bottomTabbar from '@/components/bottom-tabbar/index.vue'
 export default {
   components: {
-    bottomTabbar,
     useListTemplate
   },
 
